@@ -27,3 +27,4 @@ Desktop.ini
 # Local/IDE specific files
 .agents/
 .gemini/
+*.options.json
