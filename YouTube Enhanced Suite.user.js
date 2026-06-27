@@ -654,7 +654,7 @@
       alignItems: 'center',
     });
 
-    const label = el('span', {}, '🎛️ Features:');
+    const label = el('span', {}, 'Features:');
     Object.assign(label.style, {
       color: '#aaa',
       fontSize: '12px',
