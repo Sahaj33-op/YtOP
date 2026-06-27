@@ -14,6 +14,8 @@
 // @run-at       document-idle
 // @homepageURL  https://github.com/Sahaj33-op/YtOP
 // @supportURL   https://github.com/Sahaj33-op/YtOP/issues
+// @updateURL    https://raw.githubusercontent.com/Sahaj33-op/YtOP/master/YouTube%20Enhanced%20Suite.user.js
+// @downloadURL  https://raw.githubusercontent.com/Sahaj33-op/YtOP/master/YouTube%20Enhanced%20Suite.user.js
 // @noframes
 // ==/UserScript==
 
