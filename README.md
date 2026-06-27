@@ -55,3 +55,30 @@ You can modify the following variables inside **[yt-dlp-server.py](yt-dlp-server
 *   `PORT`: Port for the local bridge server (default: `9898`).
 *   `DOWNLOAD_DIR`: Absolute path to save downloads (default: `%USERPROFILE%/Downloads/ytOP`).
 *   `FFMPEG_BIN` / `YTDLP_BIN`: Customize absolute paths to the binaries if not using standard system installation paths.
+
+---
+
+## ❓ Frequently Asked Questions (FAQ)
+
+### How do I start the server silently in the background?
+Instead of double-clicking `start-server.bat` (which leaves a Command Prompt window open), double-click **[start-silent.vbs](start-silent.vbs)**. This runs the Python server completely in the background.
+
+### How do I stop the background server?
+To stop the silent background server, double-click **[stop-server.bat](stop-server.bat)** in this repository folder. It will find the running Python server process and terminate it immediately.
+
+### How do I make the server start automatically when my computer boots?
+1. Press `Win + R` to open the Windows Run dialog.
+2. Type `shell:startup` and press **Enter** (this opens your Windows Startup folder).
+3. Right-click inside the folder, select **New ➔ Shortcut**.
+4. Click **Browse...**, select **[start-silent.vbs](start-silent.vbs)**, and click **Finish**.
+
+### Why do I see a `(⚠️ FFmpeg missing)` warning?
+The bridge server checked your PATH and standard folders but could not find a valid `ffmpeg.exe` installation. To resolve this:
+* Make sure FFmpeg is installed (e.g. via `winget install Gyan.FFmpeg`).
+* If already installed, open **[yt-dlp-server.py](yt-dlp-server.py)** and set `FFMPEG_BIN` to the absolute path of your executable (e.g. `r"C:\tools\ffmpeg\bin\ffmpeg.exe"`).
+
+### Can I change where downloaded videos are saved?
+Yes. Open **[yt-dlp-server.py](yt-dlp-server.py)** and update the `DOWNLOAD_DIR` path to any directory of your choice.
+
+### Is it safe to run this server?
+Yes. The server binds strictly to `127.0.0.1` (localhost) and only handles requests from `https://www.youtube.com`. Other devices on your local network cannot connect or access your filesystem.
