@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         🎬 YouTube Enhanced Suite (Controls & Downloader)
+// @name         YouTube Enhanced (Controls & Downloader)
 // @namespace    https://github.com/Sahaj33-op/YtOP
 // @version      3.2.0
 // @description  Adds a real yt-dlp download button and video player controls (speed, loop, cinema mode, screenshot) to YouTube.
@@ -31,22 +31,22 @@
   const OVL_ID = "ytdlp-overlay";
 
   const CFG = {
-    presetSpeeds    : [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3],
-    fineStep        : 0.25,
-    minSpeed        : 0.1,
-    maxSpeed        : 16,
-    osdDuration     : 1500,
-    keySpeed        : 'yt-spd-ctrl',
-    wrapperId       : 'yt-spd-wrap',
-    featureRowId    : 'yt-feat-wrap',
-    osdId           : 'yt-spd-osd',
-    cinemaOverlayId : 'yt-cinema-overlay',
+    presetSpeeds: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3],
+    fineStep: 0.25,
+    minSpeed: 0.1,
+    maxSpeed: 16,
+    osdDuration: 1500,
+    keySpeed: 'yt-spd-ctrl',
+    wrapperId: 'yt-spd-wrap',
+    featureRowId: 'yt-feat-wrap',
+    osdId: 'yt-spd-osd',
+    cinemaOverlayId: 'yt-cinema-overlay',
   };
 
   /* ═══════════════════════════════════════════════════════════════
    * STATE
    * ═══════════════════════════════════════════════════════════════ */
-  let osdTimeout     = null;
+  let osdTimeout = null;
   const presetBtnMap = new Map(); // speed value → <button> element
 
   /* ═══════════════════════════════════════════════════════════════
@@ -368,9 +368,9 @@
   const SVG_NS = "http://www.w3.org/2000/svg";
   const PATHS = {
     download: "M5 20h14v-2H5v2zm7-18v10.17l-3.59-3.58L7 10l5 5 5-5-1.41-1.41L13 12.17V2h-1z",
-    spinner:  "M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8V2z",
-    check:    "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z",
-    cross:    "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z",
+    spinner: "M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8V2z",
+    check: "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z",
+    cross: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z",
   };
 
   function mkSVG(key) {
@@ -388,10 +388,10 @@
   function el(tag, props = {}, ...children) {
     const e = document.createElement(tag);
     for (const [k, v] of Object.entries(props)) {
-      if      (k === "cls")   e.className   = v;
-      else if (k === "text")  e.textContent = v;
-      else if (k === "title") e.title       = v;
-      else                    e.setAttribute(k, v);
+      if (k === "cls") e.className = v;
+      else if (k === "text") e.textContent = v;
+      else if (k === "title") e.title = v;
+      else e.setAttribute(k, v);
     }
     children.flat().forEach(c => {
       if (c == null) return;
@@ -416,10 +416,10 @@
   /* ═══════════════════════════════════════════════════════════════
    * PLAYER CONTROLS IMPLEMENTATION
    * ═══════════════════════════════════════════════════════════════ */
-  const clamp     = (v) => Math.min(Math.max(v, CFG.minSpeed), CFG.maxSpeed);
-  const round2    = (v) => Math.round(v * 100) / 100;
-  const loadRate  = ()  => parseFloat(localStorage.getItem(CFG.keySpeed)) || 1;
-  const saveRate  = (r) => localStorage.setItem(CFG.keySpeed, r);
+  const clamp = (v) => Math.min(Math.max(v, CFG.minSpeed), CFG.maxSpeed);
+  const round2 = (v) => Math.round(v * 100) / 100;
+  const loadRate = () => parseFloat(localStorage.getItem(CFG.keySpeed)) || 1;
+  const saveRate = (r) => localStorage.setItem(CFG.keySpeed, r);
 
   // OSD Toast
   function showOSD(msg) {
@@ -427,21 +427,21 @@
     if (!osd) {
       osd = el("div", { id: CFG.osdId });
       Object.assign(osd.style, {
-        position      : 'fixed',
-        bottom        : '76px',
-        right         : '24px',
-        background    : 'rgba(0,0,0,0.80)',
-        color         : '#fff',
-        padding       : '8px 20px',
-        borderRadius  : '10px',
-        fontSize      : '17px',
-        fontWeight    : '700',
-        fontFamily    : 'Roboto, Arial, sans-serif',
-        zIndex        : '2147483647',
-        pointerEvents : 'none',
-        opacity       : '0',
-        transition    : 'opacity 0.22s ease',
-        letterSpacing : '0.02em',
+        position: 'fixed',
+        bottom: '76px',
+        right: '24px',
+        background: 'rgba(0,0,0,0.80)',
+        color: '#fff',
+        padding: '8px 20px',
+        borderRadius: '10px',
+        fontSize: '17px',
+        fontWeight: '700',
+        fontFamily: 'Roboto, Arial, sans-serif',
+        zIndex: '2147483647',
+        pointerEvents: 'none',
+        opacity: '0',
+        transition: 'opacity 0.22s ease',
+        letterSpacing: '0.02em',
       });
       document.body.appendChild(osd);
     }
@@ -467,7 +467,7 @@
   function syncSpeedHighlight(rate) {
     presetBtnMap.forEach((btn, speed) => {
       const active = (speed === rate);
-      btn.dataset.active        = active ? '1' : '0';
+      btn.dataset.active = active ? '1' : '0';
       btn.style.backgroundColor = active ? '#cc0000' : 'rgba(255,255,255,0.10)';
     });
   }
@@ -485,8 +485,8 @@
     const video = getVideo();
     if (!video) return;
     video.loop = !video.loop;
-    updateToggleBtn(btn, video.loop, '🔁 Loop');
-    showOSD(video.loop ? '🔁 Loop ON' : '🔁 Loop OFF');
+    updateToggleBtn(btn, video.loop, 'Loop');
+    showOSD(video.loop ? 'Loop ON' : 'Loop OFF');
   }
 
   // Cinema Mode
@@ -502,8 +502,8 @@
     const on = !overlay.classList.contains('active');
     overlay.classList.toggle('active', on);
     document.body.classList.toggle('yt-cinema', on);
-    updateToggleBtn(btn, on, '🎭 Cinema');
-    showOSD(on ? '🎭 Cinema ON' : '🎭 Cinema OFF');
+    updateToggleBtn(btn, on, 'Cinema');
+    showOSD(on ? 'Cinema ON' : 'Cinema OFF');
   }
 
   // Canvas screenshot downloader
@@ -511,7 +511,7 @@
     const video = getVideo();
     if (!video) return;
     const canvas = document.createElement('canvas');
-    canvas.width  = video.videoWidth;
+    canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     canvas.getContext('2d').drawImage(video, 0, 0);
     const safeName = document.title
@@ -519,16 +519,16 @@
       .replace(/[^a-z0-9]/gi, '_')
       .slice(0, 60);
     const secs = Math.round(video.currentTime);
-    const a    = document.createElement('a');
+    const a = document.createElement('a');
     a.download = `yt_${safeName}_${secs}s.png`;
-    a.href     = canvas.toDataURL('image/png');
+    a.href = canvas.toDataURL('image/png');
     a.click();
-    showOSD('📸 Saved!');
+    showOSD('Saved!');
   }
 
   // Keyboard Shortcuts (Shift+1–9 for presets, < and > for fine-tuning)
   function onKeydown(e) {
-    const tag      = document.activeElement?.tagName?.toLowerCase();
+    const tag = document.activeElement?.tagName?.toLowerCase();
     const isTyping = tag === 'input' || tag === 'textarea' || document.activeElement?.isContentEditable;
     if (isTyping && document.activeElement?.id !== 'yt-spd-input') return;
     if (isTyping) return;
@@ -549,46 +549,46 @@
   function makeBtn(text, title) {
     const btn = el('button', { cls: 'yt-ctrl-btn', title: title || '' }, text);
     Object.assign(btn.style, {
-      backgroundColor : 'rgba(255,255,255,0.10)',
-      color           : '#fff',
-      border          : 'none',
-      borderRadius    : '18px',
-      padding         : '5px 11px',
-      cursor          : 'pointer',
-      fontSize        : '12.5px',
-      fontWeight      : '500',
-      fontFamily      : 'Roboto, Arial, sans-serif',
-      transition      : 'background-color 0.15s, transform 0.1s',
-      lineHeight      : '1.4',
-      userSelect      : 'none',
-      whiteSpace      : 'nowrap',
+      backgroundColor: 'rgba(255,255,255,0.10)',
+      color: '#fff',
+      border: 'none',
+      borderRadius: '18px',
+      padding: '5px 11px',
+      cursor: 'pointer',
+      fontSize: '12.5px',
+      fontWeight: '500',
+      fontFamily: 'Roboto, Arial, sans-serif',
+      transition: 'background-color 0.15s, transform 0.1s',
+      lineHeight: '1.4',
+      userSelect: 'none',
+      whiteSpace: 'nowrap',
     });
     return btn;
   }
 
   function updateToggleBtn(btn, isOn, label) {
-    btn.dataset.active        = isOn ? '1' : '0';
+    btn.dataset.active = isOn ? '1' : '0';
     btn.style.backgroundColor = isOn ? '#1a7a1a' : 'rgba(255,255,255,0.10)';
-    btn.textContent           = isOn ? `${label} ✓` : label;
+    btn.textContent = isOn ? `${label} ✓` : label;
   }
 
   function buildSpeedRow() {
     const wrap = el('div', { id: CFG.wrapperId });
     Object.assign(wrap.style, {
-      display    : 'flex',
-      flexWrap   : 'wrap',
-      gap        : '5px',
-      marginTop  : '10px',
-      alignItems : 'center',
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: '5px',
+      marginTop: '10px',
+      alignItems: 'center',
     });
 
     const label = el('span', { title: 'Speed controls · < / > to fine-tune · Shift+1–9 for presets' }, '⚡ Speed:');
     Object.assign(label.style, {
-      color      : '#aaa',
-      fontSize   : '12px',
-      userSelect : 'none',
-      cursor     : 'default',
-      whiteSpace : 'nowrap',
+      color: '#aaa',
+      fontSize: '12px',
+      userSelect: 'none',
+      cursor: 'default',
+      whiteSpace: 'nowrap',
     });
     wrap.appendChild(label);
 
@@ -613,16 +613,16 @@
     const input = el('input', { id: 'yt-spd-input', type: 'number', min: CFG.minSpeed, max: CFG.maxSpeed, step: '0.05', value: loadRate() });
     input.title = 'Custom speed — type any value then press Enter';
     Object.assign(input.style, {
-      width        : '54px',
-      background   : 'rgba(255,255,255,0.10)',
-      color        : '#fff',
-      border       : '1px solid rgba(255,255,255,0.25)',
-      borderRadius : '14px',
-      padding      : '4px 8px',
-      fontSize     : '12.5px',
-      fontFamily   : 'Roboto, Arial, sans-serif',
-      textAlign    : 'center',
-      outline      : 'none',
+      width: '54px',
+      background: 'rgba(255,255,255,0.10)',
+      color: '#fff',
+      border: '1px solid rgba(255,255,255,0.25)',
+      borderRadius: '14px',
+      padding: '4px 8px',
+      fontSize: '12.5px',
+      fontFamily: 'Roboto, Arial, sans-serif',
+      textAlign: 'center',
+      outline: 'none',
     });
     input.addEventListener('keydown', (e) => {
       e.stopPropagation(); // prevent YouTube from stealing input focus
@@ -633,7 +633,7 @@
       }
     });
     input.addEventListener('focus', () => { input.style.borderColor = 'rgba(200,0,0,0.8)'; });
-    input.addEventListener('blur',  () => { input.style.borderColor = 'rgba(255,255,255,0.25)'; });
+    input.addEventListener('blur', () => { input.style.borderColor = 'rgba(255,255,255,0.25)'; });
     wrap.appendChild(input);
 
     const resetBtn = makeBtn('↺', 'Reset speed to 1×');
@@ -647,32 +647,32 @@
   function buildFeatureRow() {
     const wrap = el('div', { id: CFG.featureRowId });
     Object.assign(wrap.style, {
-      display    : 'flex',
-      flexWrap   : 'wrap',
-      gap        : '5px',
-      marginTop  : '6px',
-      alignItems : 'center',
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: '5px',
+      marginTop: '6px',
+      alignItems: 'center',
     });
 
     const label = el('span', {}, '🎛️ Features:');
     Object.assign(label.style, {
-      color      : '#aaa',
-      fontSize   : '12px',
-      userSelect : 'none',
-      cursor     : 'default',
-      whiteSpace : 'nowrap',
+      color: '#aaa',
+      fontSize: '12px',
+      userSelect: 'none',
+      cursor: 'default',
+      whiteSpace: 'nowrap',
     });
     wrap.appendChild(label);
 
-    const loopBtn = makeBtn('🔁 Loop', 'Toggle video looping');
+    const loopBtn = makeBtn('Loop', 'Toggle video looping');
     loopBtn.addEventListener('click', () => toggleLoop(loopBtn));
     wrap.appendChild(loopBtn);
 
-    const cinemaBtn = makeBtn('🎭 Cinema', 'Dim the page outside the player');
+    const cinemaBtn = makeBtn('Cinema', 'Dim the page outside the player');
     cinemaBtn.addEventListener('click', () => toggleCinema(cinemaBtn));
     wrap.appendChild(cinemaBtn);
 
-    const snapBtn = makeBtn('📸 Screenshot', 'Download the current video frame as a PNG');
+    const snapBtn = makeBtn('Screenshot', 'Download the current video frame as a PNG');
     snapBtn.addEventListener('click', takeScreenshot);
     wrap.appendChild(snapBtn);
 
@@ -681,7 +681,7 @@
 
   function tryInjectControls() {
     const anchor = document.querySelector('#bottom-row');
-    const video  = getVideo();
+    const video = getVideo();
     if (!anchor || !video) return;
 
     if (!document.getElementById(CFG.wrapperId)) {
@@ -711,21 +711,21 @@
   function gmFetch(url, opts = {}) {
     return new Promise((resolve, reject) => {
       GM_xmlhttpRequest({
-        method:  opts.method || "GET",
+        method: opts.method || "GET",
         url,
         headers: { "Content-Type": "application/json" },
-        data:    opts.body || null,
+        data: opts.body || null,
         timeout: 45000,
         onload: (r) => {
           try {
             resolve({
-              ok:     r.status >= 200 && r.status < 400,
+              ok: r.status >= 200 && r.status < 400,
               status: r.status,
-              json:   () => JSON.parse(r.responseText),
+              json: () => JSON.parse(r.responseText),
             });
-          } catch(e) { reject(new Error("Bad JSON response from local server.")); }
+          } catch (e) { reject(new Error("Bad JSON response from local server.")); }
         },
-        onerror:   () => reject(new Error("Cannot reach local server — is yt-dlp-server.py running?")),
+        onerror: () => reject(new Error("Cannot reach local server — is yt-dlp-server.py running?")),
         ontimeout: () => reject(new Error("Request timed out after 45 seconds")),
       });
     });
@@ -751,22 +751,22 @@
 
   function codecLabel(c) {
     if (!c || c === "none") return "";
-    if (/^avc1|^h264/i.test(c))  return "H.264";
-    if (/^av01/i.test(c))         return "AV1";
-    if (/^vp9/i.test(c))          return "VP9";
-    if (/^vp8/i.test(c))          return "VP8";
-    if (/^mp4a/i.test(c))         return "AAC";
-    if (/^opus/i.test(c))         return "Opus";
+    if (/^avc1|^h264/i.test(c)) return "H.264";
+    if (/^av01/i.test(c)) return "AV1";
+    if (/^vp9/i.test(c)) return "VP9";
+    if (/^vp8/i.test(c)) return "VP8";
+    if (/^mp4a/i.test(c)) return "AAC";
+    if (/^opus/i.test(c)) return "Opus";
     return c.split(".")[0].toUpperCase();
   }
 
   function showToast(text, isError = false) {
     let t = document.getElementById("ytdlp-toast");
     if (!t) { t = el("div", { id: "ytdlp-toast" }); document.body.appendChild(t); }
-    t.textContent      = text;
+    t.textContent = text;
     t.style.background = isError ? "#3d0f0f" : "#0f2d0f";
-    t.style.color      = isError ? "#ff8888" : "#77ee77";
-    t.style.border     = `1px solid ${isError ? "#6b1c1c" : "#1e5c1e"}`;
+    t.style.color = isError ? "#ff8888" : "#77ee77";
+    t.style.border = `1px solid ${isError ? "#6b1c1c" : "#1e5c1e"}`;
     t.classList.add("show");
     clearTimeout(t._tmr);
     t._tmr = setTimeout(() => t.classList.remove("show"), 4000);
@@ -802,7 +802,7 @@
 
   function showLoadingModal() {
     document.getElementById(OVL_ID)?.remove();
-    const modal   = el("div", { id: "ytdlp-modal" },
+    const modal = el("div", { id: "ytdlp-modal" },
       el("div", { cls: "ytdlp-header", style: "justify-content:flex-end;border:none" }, makeCloseBtn()),
       el("div", { cls: "ytdlp-loading" }, el("div", { cls: "ytdlp-spinner" }), "Fetching formats from yt-dlp…"),
     );
@@ -853,7 +853,7 @@
 
   function createOrUpdateMinCard(percent = 0, speed = "~", eta = "~", status = "downloading") {
     if (!isMinimized) return;
-    
+
     let card = document.getElementById("ytdlp-min-card");
     if (!card) {
       card = el("div", { id: "ytdlp-min-card" });
@@ -872,7 +872,7 @@
     let barWidth = percent + "%";
     let metaLeft = `${percent}%`;
     let metaRight = `ETA: ${eta}`;
-    
+
     if (status === "merging") {
       barWidth = "100%";
       metaLeft = "Muxing…";
@@ -908,7 +908,7 @@
   }
 
   function buildRow(fmt) {
-    const row    = el("div", { cls: "ytdlp-row" });
+    const row = el("div", { cls: "ytdlp-row" });
     const isAudio = fmt.type === "audio";
 
     const badge = el("div", { cls: `ytdlp-badge ${isAudio ? "abr" : "res"}` });
@@ -923,7 +923,7 @@
     if (fmt.hdr) row.appendChild(el("div", { cls: "ytdlp-badge hdr" }, "HDR"));
 
     const info = el("div", { cls: "ytdlp-info" });
-    const vcl  = codecLabel(fmt.vcodec || fmt.acodec);
+    const vcl = codecLabel(fmt.vcodec || fmt.acodec);
     if (vcl) info.appendChild(el("span", { cls: "ytdlp-codec" }, vcl));
 
     if ((fmt.type === "video+audio" || fmt.type === "muxed") && fmt.acodec) {
@@ -975,71 +975,71 @@
     let errCount = 0;
     const intervalId = setInterval(() => {
       gmFetch(`${SERVER}/progress?url=${encodeURIComponent(getVideoURL())}&format_id=${encodeURIComponent(fmt.format_id)}`)
-      .then(r => {
-        if (!r.ok) return;
-        const p = r.json();
-        
-        const poll = activePolls.get(key);
-        if (!poll) return;
-        const curBtn = poll.btn;
-        const row = curBtn.closest(".ytdlp-row");
+        .then(r => {
+          if (!r.ok) return;
+          const p = r.json();
 
-        if (p.status === "downloading") {
-          if (row) {
-            row.classList.add("downloading");
-            const bar = row.querySelector(".ytdlp-row-progress-bar");
-            if (bar) bar.style.width = p.percent + "%";
-          }
-          curBtn.className = "ytdlp-dl-btn loading";
-          clearAndFill(curBtn, mkSVG("spinner"), ` ${p.percent}%`);
-          curBtn.title = `Speed: ${p.speed} · ETA: ${p.eta}`;
-          createOrUpdateMinCard(Math.round(p.percent), p.speed, p.eta, "downloading");
-        } else if (p.status === "merging") {
-          if (row) {
-            row.classList.add("downloading");
-            const bar = row.querySelector(".ytdlp-row-progress-bar");
-            if (bar) bar.style.width = "100%";
-          }
-          curBtn.className = "ytdlp-dl-btn loading";
-          clearAndFill(curBtn, mkSVG("spinner"), " Muxing…");
-          curBtn.title = "FFmpeg is combining video and audio tracks...";
-          createOrUpdateMinCard(100, "", "", "merging");
-        } else if (p.status === "completed") {
-          clearInterval(intervalId);
-          activePolls.delete(key);
-          if (row) row.classList.remove("downloading");
-          curBtn.className = "ytdlp-dl-btn sent";
-          clearAndFill(curBtn, mkSVG("check"), " Done!");
-          curBtn.title = "Download finished successfully!";
-          showToast("⬇ Download completed!");
-          createOrUpdateMinCard(100, "", "", "completed");
-        } else if (p.status === "error") {
-          clearInterval(intervalId);
-          activePolls.delete(key);
-          if (row) row.classList.remove("downloading");
-          curBtn.className = "ytdlp-dl-btn err";
-          clearAndFill(curBtn, mkSVG("cross"), " Failed");
-          curBtn.title = p.error || "Unknown error";
-          showToast(`❌ Download failed: ${p.error || "Unknown error"}`, true);
-          createOrUpdateMinCard(100, "", "", "error");
-        }
-      })
-      .catch(() => {
-        errCount++;
-        if (errCount > 10) {
-          clearInterval(intervalId);
           const poll = activePolls.get(key);
-          if (poll) {
-            const curBtn = poll.btn;
-            const row = curBtn.closest(".ytdlp-row");
+          if (!poll) return;
+          const curBtn = poll.btn;
+          const row = curBtn.closest(".ytdlp-row");
+
+          if (p.status === "downloading") {
+            if (row) {
+              row.classList.add("downloading");
+              const bar = row.querySelector(".ytdlp-row-progress-bar");
+              if (bar) bar.style.width = p.percent + "%";
+            }
+            curBtn.className = "ytdlp-dl-btn loading";
+            clearAndFill(curBtn, mkSVG("spinner"), ` ${p.percent}%`);
+            curBtn.title = `Speed: ${p.speed} · ETA: ${p.eta}`;
+            createOrUpdateMinCard(Math.round(p.percent), p.speed, p.eta, "downloading");
+          } else if (p.status === "merging") {
+            if (row) {
+              row.classList.add("downloading");
+              const bar = row.querySelector(".ytdlp-row-progress-bar");
+              if (bar) bar.style.width = "100%";
+            }
+            curBtn.className = "ytdlp-dl-btn loading";
+            clearAndFill(curBtn, mkSVG("spinner"), " Muxing…");
+            curBtn.title = "FFmpeg is combining video and audio tracks...";
+            createOrUpdateMinCard(100, "", "", "merging");
+          } else if (p.status === "completed") {
+            clearInterval(intervalId);
+            activePolls.delete(key);
+            if (row) row.classList.remove("downloading");
+            curBtn.className = "ytdlp-dl-btn sent";
+            clearAndFill(curBtn, mkSVG("check"), " Done!");
+            curBtn.title = "Download finished successfully!";
+            showToast("⬇ Download completed!");
+            createOrUpdateMinCard(100, "", "", "completed");
+          } else if (p.status === "error") {
+            clearInterval(intervalId);
+            activePolls.delete(key);
             if (row) row.classList.remove("downloading");
             curBtn.className = "ytdlp-dl-btn err";
-            clearAndFill(curBtn, mkSVG("cross"), " Offline");
-            curBtn.title = "Local server offline";
+            clearAndFill(curBtn, mkSVG("cross"), " Failed");
+            curBtn.title = p.error || "Unknown error";
+            showToast(`❌ Download failed: ${p.error || "Unknown error"}`, true);
+            createOrUpdateMinCard(100, "", "", "error");
           }
-          activePolls.delete(key);
-        }
-      });
+        })
+        .catch(() => {
+          errCount++;
+          if (errCount > 10) {
+            clearInterval(intervalId);
+            const poll = activePolls.get(key);
+            if (poll) {
+              const curBtn = poll.btn;
+              const row = curBtn.closest(".ytdlp-row");
+              if (row) row.classList.remove("downloading");
+              curBtn.className = "ytdlp-dl-btn err";
+              clearAndFill(curBtn, mkSVG("cross"), " Offline");
+              curBtn.title = "Local server offline";
+            }
+            activePolls.delete(key);
+          }
+        });
     }, 1000);
 
     activePolls.set(key, { intervalId, btn });
@@ -1051,22 +1051,22 @@
     gmFetch(`${SERVER}/download`, {
       method: "POST",
       body: JSON.stringify({
-        url:       getVideoURL(),
+        url: getVideoURL(),
         format_id: fmt.format_id,
         merge_ext: fmt.merge_ext || fmt.ext || "mp4",
       }),
     })
-    .then(r => {
-      const d = r.json();
-      if (!r.ok) throw new Error(d.error || `Server returned ${r.status}`);
-      pollProgress(btn, fmt);
-    })
-    .catch(err => {
-      btn.className = "ytdlp-dl-btn err";
-      clearAndFill(btn, mkSVG("cross"), " Failed");
-      btn.title = err.message;
-      showToast(`❌ ${err.message}`, true);
-    });
+      .then(r => {
+        const d = r.json();
+        if (!r.ok) throw new Error(d.error || `Server returned ${r.status}`);
+        pollProgress(btn, fmt);
+      })
+      .catch(err => {
+        btn.className = "ytdlp-dl-btn err";
+        clearAndFill(btn, mkSVG("cross"), " Failed");
+        btn.title = err.message;
+        showToast(`❌ ${err.message}`, true);
+      });
   }
 
   function buildModal(data) {
@@ -1086,7 +1086,7 @@
     appendKids(hdr,
       el("div", { cls: "ytdlp-meta" },
         el("div", { cls: "ytdlp-title", title: data.title || "" }, data.title || "Unknown title"),
-        el("div", { cls: "ytdlp-sub"  }, subText),
+        el("div", { cls: "ytdlp-sub" }, subText),
       ),
       minBtn,
       makeCloseBtn(),
@@ -1094,15 +1094,15 @@
 
     const TABS = [
       { key: "video_audio", label: "🎬 Video + Audio" },
-      { key: "video_only",  label: "🎥 Video Only"    },
-      { key: "audio_only",  label: "🎵 Audio Only"    },
+      { key: "video_only", label: "🎥 Video Only" },
+      { key: "audio_only", label: "🎵 Audio Only" },
     ];
 
     const savedTab = GM_getValue("lastTab", "video_audio");
-    const tabBar   = el("div", { cls: "ytdlp-tabs" });
-    const body     = el("div", { cls: "ytdlp-body" });
-    const panels   = {};
-    const tabEls   = {};
+    const tabBar = el("div", { cls: "ytdlp-tabs" });
+    const body = el("div", { cls: "ytdlp-body" });
+    const panels = {};
+    const tabEls = {};
 
     TABS.forEach(({ key, label }) => {
       const isActive = key === savedTab;
@@ -1119,7 +1119,7 @@
       tabEls[key] = tab;
 
       const panel = el("div", { cls: "ytdlp-panel" + (isActive ? " active" : "") });
-      const list  = (data[key] || []);
+      const list = (data[key] || []);
       if (list.length === 0) {
         panel.appendChild(el("div", { cls: "ytdlp-empty" }, "No formats in this category."));
       } else {
@@ -1135,7 +1135,7 @@
           const filterBar = el("div", { cls: "ytdlp-filters" },
             el("span", { cls: "ytdlp-filter-label" }, "Format:")
           );
-          
+
           const chips = [];
           const allChip = el("div", { cls: "ytdlp-filter-chip active", text: "All" });
           chips.push(allChip);
@@ -1178,7 +1178,7 @@
       panels[key] = panel;
     });
 
-    const dot     = el("div", { cls: "ytdlp-dot" });
+    const dot = el("div", { cls: "ytdlp-dot" });
     const dirText = el("div", { cls: "ytdlp-footer-dir" }, "Checking server…");
     const branding = el("a", {
       href: "https://github.com/Sahaj33-op/YtOP",
@@ -1193,9 +1193,9 @@
     branding.appendChild(document.createTextNode("ytOP by Sahaj33-op ↗"));
     branding.addEventListener("mouseenter", () => branding.style.color = "#ff0000");
     branding.addEventListener("mouseleave", () => branding.style.color = "#888");
-    const footer  = el("div", { cls: "ytdlp-footer" }, dot, dirText, branding);
+    const footer = el("div", { cls: "ytdlp-footer" }, dot, dirText, branding);
 
-    const modal   = el("div", { id: "ytdlp-modal" }, hdr, tabBar, body, footer);
+    const modal = el("div", { id: "ytdlp-modal" }, hdr, tabBar, body, footer);
     const overlay = el("div", { id: OVL_ID }, modal);
     attachOverlayClose(overlay);
     document.body.appendChild(overlay);
@@ -1203,7 +1203,7 @@
     gmFetch(`${SERVER}/health`)
       .then(r => {
         const d = r.json();
-        dot.className    = "ytdlp-dot ok";
+        dot.className = "ytdlp-dot ok";
         let warning = "";
         let tooltip = `Download folder: ${d.download_dir}`;
         if (d.ffmpeg_installed === false) {
@@ -1217,7 +1217,7 @@
         dirText.title = tooltip;
       })
       .catch(() => {
-        dot.className    = "ytdlp-dot err";
+        dot.className = "ytdlp-dot err";
         dirText.textContent = "Server offline";
         dirText.title = "Local server is offline. Run start-server.bat to start it.";
         dirText.style.color = "#ff6666";
@@ -1346,7 +1346,7 @@
 
   observer.observe(document.documentElement, {
     childList: true,
-    subtree:   true,
+    subtree: true,
   });
 
   // Keyboard shortcut listener for player controls
