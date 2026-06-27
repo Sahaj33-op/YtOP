@@ -18,6 +18,13 @@ import threading
 import urllib.parse
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
+try:
+    import pystray
+    from PIL import Image, ImageDraw
+    TRAY_AVAILABLE = True
+except ImportError:
+    TRAY_AVAILABLE = False
+
 # Regular expression to parse yt-dlp download progress
 # Matches: [download]  12.3% of 45.67MiB at  5.12MiB/s ETA 00:08
 progress_re = re.compile(
@@ -394,6 +401,44 @@ class Handler(BaseHTTPRequestHandler):
             self._json(500, {"error": str(e)})
 
 
+def run_tray(server_obj):
+    def stop_action(icon, item):
+        icon.stop()
+        server_obj.shutdown()
+        print("Server stopped from system tray.")
+        os._exit(0)
+
+    def open_dir(icon, item):
+        os.startfile(DOWNLOAD_DIR)
+
+    def open_github(icon, item):
+        import webbrowser
+        webbrowser.open("https://github.com/Sahaj33-op/YtOP")
+
+    # Generate icon in memory
+    try:
+        image = Image.new('RGB', (64, 64), color=(15, 15, 15))
+        dc = ImageDraw.Draw(image)
+        dc.ellipse((8, 8, 56, 56), fill=(255, 0, 0))
+        dc.rectangle((28, 16, 36, 32), fill=(255, 255, 255))
+        dc.polygon([(32, 48), (18, 30), (46, 30)], fill=(255, 255, 255))
+    except Exception:
+        # Fallback 1x1 red block if drawing fails
+        image = Image.new('RGB', (64, 64), color=(255, 0, 0))
+
+    menu = pystray.Menu(
+        pystray.MenuItem("ytOP Server Running", lambda: None, enabled=False),
+        pystray.Menu.SEPARATOR,
+        pystray.MenuItem("Open Downloads Folder", open_dir),
+        pystray.MenuItem("Open GitHub Repository", open_github),
+        pystray.Menu.SEPARATOR,
+        pystray.MenuItem("Stop Server", stop_action)
+    )
+
+    icon = pystray.Icon("ytOP", image, "ytOP Local Server", menu)
+    icon.run()
+
+
 if __name__ == "__main__":
     server = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
     print("██╗░░░██╗████████╗░█████╗░██████╗░")
@@ -408,9 +453,28 @@ if __name__ == "__main__":
     print(f"║   Save path: {DOWNLOAD_DIR[:39]:<40}║")
     print("║   GitHub:   https://github.com/Sahaj33-op/YtOP       ║")
     print("║   Author:   Sahaj33-op                               ║")
+    if TRAY_AVAILABLE:
+        print("║   System Tray: Active (Pystray enabled)              ║")
+    else:
+        print("║   System Tray: Inactive (pip install pystray Pillow) ║")
     print("╚══════════════════════════════════════════════════════╝")
-    try:
-        server.serve_forever()
-    except KeyboardInterrupt:
-        print("\nServer stopped.")
-        sys.exit(0)
+
+    if TRAY_AVAILABLE:
+        # Start server in a background thread
+        t = threading.Thread(target=server.serve_forever, daemon=True)
+        t.start()
+        # Run pystray in the main thread (blocking)
+        try:
+            run_tray(server)
+        except Exception as e:
+            print(f"Failed to start tray: {e}. Falling back to console mode.")
+            try:
+                server.serve_forever()
+            except KeyboardInterrupt:
+                pass
+    else:
+        try:
+            server.serve_forever()
+        except KeyboardInterrupt:
+            print("\nServer stopped.")
+            sys.exit(0)

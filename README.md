@@ -40,6 +40,10 @@ A light-weight YouTube integration, plus a local download suite. ytOP helps smoo
     ```powershell
     winget install yt-dlp Gyan.FFmpeg
     ```
+*   *(Optional)* `pystray` and `Pillow` to enable the system tray status icon:
+    ```powershell
+    pip install pystray Pillow
+    ```
 
 ### Step 1: Clone the Repository
 Clone this repository to your local machine to obtain the Python bridge server and runner scripts:
@@ -169,7 +173,12 @@ You can modify the following variables inside **[yt-dlp-server.py](yt-dlp-server
 Instead of double-clicking `start-server.bat` (which leaves a Command Prompt window open), double-click **[start-silent.vbs](start-silent.vbs)**. This runs the Python server completely in the background.
 
 ### How do I stop the background server?
-To stop the silent background server, double-click **[stop-server.bat](stop-server.bat)** in this repository folder. It will find the running Python server process and terminate it immediately.
+To stop the silent background server, double-click **[stop-server.bat](stop-server.bat)** in this repository folder. It will find the running Python server process and terminate it immediately. Alternatively, if you have the optional system tray icon enabled, simply right-click the red tray icon and select **Stop Server**.
+
+### How do I enable and use the system tray icon?
+If you install the optional tray dependencies (`pip install pystray Pillow`), a red download arrow icon will automatically appear in your Windows system tray when the server is running.
+* Right-click the icon to quickly **Stop Server**, **Open Downloads Folder**, or open the **GitHub Repository**.
+* If the libraries are not installed, the server will seamlessly run in standard console/background mode without crashing.
 
 ### How do I make the server start automatically when my computer boots?
 1. Press `Win + R` to open the Windows Run dialog.
