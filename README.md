@@ -1,70 +1,137 @@
 # ytOP 🎬
 
-A modern, lightweight YouTube enhancement and local downloader suite. It combines a premium browser userscript interface with a robust, zero-config local Python bridge server utilizing `yt-dlp`.
+```
+██╗░░░██╗████████╗░█████╗░██████╗░
+╚██╗░██╔╝╚══██╔══╝██╔══██╗██╔══██╗
+░╚████╔╝░░░░██║░░░██║░░██║██████╔╝
+░░╚██╔╝░░░░░██║░░░██║░░██║██╔═══╝░
+░░░██║░░░░░░██║░░░╚█████╔╝██║░░░░░
+░░░╚═╝░░░░░░╚═╝░░░░╚════╝░╚═╝░░░░░
+```
+
+A premium, lightweight YouTube integration and local downloader suite. **ytOP** bridges the gap between browser convenience and raw CLI power, linking a beautiful Tampermonkey userscript overlay with a multi-threaded Python backend server powered by `yt-dlp` and `ffmpeg`.
+
+---
+
+## 📖 Table of Contents
+*   [Key Features](#-key-features)
+*   [Architecture Flow](#%EF%B8%8F-architecture-flow)
+*   [Installation & Setup](#-installation--setup)
+*   [File Structure](#-file-structure)
+*   [Configurations](#-configurations)
+*   [Frequently Asked Questions (FAQ)](#-frequently-asked-questions-faq)
+*   [Disclaimer](#-disclaimer)
 
 ---
 
 ## 🌟 Key Features
 
-### 1. Advanced Video Controls
-*   **Speed Selection & Fine-Tuning**: Preset speed buttons (`0.5x` to `3x`) plus precise increment adjustments (`-` / `+`).
-*   **Player Add-ons**: Cinema overlay mode, continuous A/B looping, and high-definition player screenshots.
-*   **On-Screen Display (OSD)**: Visual indicators for active actions (like speed shifts) overlapping the player.
+### 🎮 Player Enhancement & Controls
+*   **Speed Tuning**: Instant speed preset buttons (`0.5x` to `3x`) plus high-fidelity fine-tuning controls (`-` / `+` in steps of `0.25x`).
+*   **Player Extras**: Native cinema mode overlay, A/B looping boundaries, and high-definition canvas screenshots.
+*   **OSD (On-Screen Display)**: Sleek, non-intrusive micro-animations indicating status updates directly over the YouTube player.
 
-### 2. Multi-Format Downloader
-*   **Integrated Formats Panel**: Instant extraction of available media profiles directly from YouTube watch/shorts pages.
-*   **Category Tabs**: Separate lists for `Video + Audio` (muxed), `Video Only`, and `Audio Only`.
-*   **Dynamic Extension Filters**: Filter available format options instantly using file extensions (like `MP4` or `WebM`).
+### 📥 High-Speed Multi-Format Downloader
+*   **Intelligent Formats Extraction**: Dynamic extraction of available media profiles directly inside watch and shorts pages.
+*   **Tabbed Interface**: Clean separation for `Video + Audio` (muxed streams), `Video Only` (raw streams), and `Audio Only` (audios).
+*   **Dynamic Extension Filters**: Filter profiles instantly via clickable format pills (e.g. `[MP4]`, `[WEBM]`, `[M4A]`, `[OPUS]`).
 
-### 3. Sleek Visual Feedback
-*   **Inline Progress Bars**: Slim horizontal progress tracks rendering along format rows during downloads.
-*   **Detailed Tooltips**: Real-time download statistics (percentage, network speed, and ETA).
-*   **Minimize to Background**: Collapse active download dialogs into a interactive floating progress widget on the corner of the browser page, letting you continue watching or browsing YouTube.
-*   **Auto-Minimize on Close**: Hitting `Esc` or clicking the backdrop during active downloads automatically minimizes the modal instead of destroying the visual progress indicators.
+### ⚡ Live Progress & Background Execution
+*   **Sleek Inline Progress Tracks**: A 3px horizontal red progress line glides along the format row during active downloads.
+*   **Tooltips**: Hovering the button exposes real-time transfer speeds and ETA.
+*   **Minimize to Background**: Click the minimize (`🗕`) button or press `M` to collapse the overlay into a compact, interactive floating card. Browse or watch other videos on YouTube while the download runs in the background.
+*   **Self-Restoring State**: Click the minimized card to expand the modal back to its original state.
+*   **Auto-Minimize on Close**: Hitting `Esc` or clicking outside the modal during active downloads auto-minimizes the window instead of destroying it.
 
-### 4. Smart System Diagnostics
-*   **Self-Healing Paths**: Automatically searches and resolves local `ffmpeg` and `yt-dlp` executables in standard Windows package directories (like WinGet folders) to prevent PATH configuration issues.
-*   **FFmpeg Validation**: Startup verification on the bridge server. If FFmpeg is missing from the host environment, the user is warned directly inside the Tampermonkey modal.
+### 🛠 System Self-Healing & Diagnostics
+*   **Auto-Resolution**: The Python backend checks system PATH and automatically resolves WinGet installation directories for `ffmpeg` and `yt-dlp` to ensure a zero-config start.
+*   **Availability Warnings**: Startup verification checks. If FFmpeg is missing from the environment, a `(⚠️ FFmpeg missing)` warning is highlighted in the modal footer.
+
+---
+
+## ⚙️ Architecture Flow
+
+```
++---------------------------------------------------------+
+|                  YouTube Watch Page                     |
+|                                                         |
+|  [ Tampermonkey / Violentmonkey Userscript Overlay ]    |
+|   - Interactive format lists & filter chips             |
+|   - Minimize button, keyboard shortcuts, progress bar  |
++---------------------------+-----------------------------+
+                            |
+                 (POST /download, GET /progress)
+                            |
+                            v
++---------------------------------------------------------+
+|             Local Python Bridge Server                  |
+|                 (http://127.0.0.1:9898)                 |
+|                                                         |
+|  [ Multi-Threaded HTTP Server & Progress Manager ]      |
+|   - Executable path self-resolution (WinGet path lookup)|
+|   - Real-time stdout regex stream parsing               |
++---------------------------+-----------------------------+
+                            |
+                   (subprocess.Popen)
+                            |
+                            v
++---------------------------------------------------------+
+|               System Binaries (CLI)                     |
+|                                                         |
+|        [ yt-dlp.exe ]  =======>  [ ffmpeg.exe ]         |
+|      (Stream Fetcher)          (Format Muxer/Joiner)    |
++---------------------------------------------------------+
+```
 
 ---
 
 ## 🚀 Installation & Setup
 
 ### Prerequisites
-*   [Python 3](https://www.python.org/)
-*   [Tampermonkey](https://www.tampermonkey.net/) (or Violentmonkey) browser extension.
-*   `yt-dlp` and `ffmpeg` installed. Recommended to install via WinGet:
+*   [Python 3.x](https://www.python.org/)
+*   A userscript manager extension (e.g., [Tampermonkey](https://www.tampermonkey.net/) or [Violentmonkey](https://violentmonkey.github.io/))
+*   `yt-dlp` and `ffmpeg` installed. We recommend installing via WinGet:
     ```powershell
     winget install yt-dlp Gyan.FFmpeg
     ```
 
 ### Step 1: Install the Userscript
-1. Open Tampermonkey in your browser and create a new script.
-2. Paste the contents of **[YouTube Enhanced Suite.user.js](YouTube%20Enhanced%20Suite.user.js)**.
-3. Save the script.
+1. Open Tampermonkey in your browser and select **Create a new script**.
+2. Replace the template code with the contents of **[YouTube Enhanced Suite.user.js](YouTube%20Enhanced%20Suite.user.js)**.
+3. Save the script (`Ctrl + S`).
 
-### Step 2: Start the Bridge Server
-*   Run the **[start-server.bat](start-server.bat)** batch script to launch the local Python server (`http://127.0.0.1:9898`).
-*   Downloads are saved to your system's `Downloads/ytOP` folder by default.
+### Step 2: Run the Local Bridge Server
+*   Double-click **[start-server.bat](start-server.bat)** to launch the console bridge.
+*   *Alternatively*, run **[start-silent.vbs](start-silent.vbs)** to execute the server invisibly in the background.
+
+---
+
+## 📁 File Structure
+
+*   `YouTube Enhanced Suite.user.js` - Tampermonkey userscript containing the client UI and player controls.
+*   `yt-dlp-server.py` - Multi-threaded Python server handling background subprocess spawning and progress reports.
+*   `start-server.bat` - Standard console window startup script.
+*   `start-silent.vbs` - Visual Basic script to launch the server silently.
+*   `stop-server.bat` - Shell script to automatically search and terminate active server processes.
+*   `.gitignore` - Pre-configured git rules to ignore caches and IDE configurations.
 
 ---
 
 ## 🛠 Configurations
 
-You can modify the following variables inside **[yt-dlp-server.py](yt-dlp-server.py)**:
-*   `PORT`: Port for the local bridge server (default: `9898`).
-*   `DOWNLOAD_DIR`: Absolute path to save downloads (default: `%USERPROFILE%/Downloads/ytOP`).
-*   `FFMPEG_BIN` / `YTDLP_BIN`: Customize absolute paths to the binaries if not using standard system installation paths.
+You can modify config parameters at the top of **[yt-dlp-server.py](yt-dlp-server.py)**:
+```python
+PORT           = 9898                                                   # Network Port
+DOWNLOAD_DIR   = os.path.join(os.path.expanduser("~"), "Downloads", "ytOP") # Output folder
+ALLOWED_ORIGIN = "https://www.youtube.com"                              # CORS restriction
+```
 
 ---
 
 ## ❓ Frequently Asked Questions (FAQ)
 
-### How do I start the server silently in the background?
-Instead of double-clicking `start-server.bat` (which leaves a Command Prompt window open), double-click **[start-silent.vbs](start-silent.vbs)**. This runs the Python server completely in the background.
-
 ### How do I stop the background server?
-To stop the silent background server, double-click **[stop-server.bat](stop-server.bat)** in this repository folder. It will find the running Python server process and terminate it immediately.
+Double-click **[stop-server.bat](stop-server.bat)** in this repository folder. It searches for active python processes running `yt-dlp-server.py` and terminates them safely.
 
 ### How do I make the server start automatically when my computer boots?
 1. Press `Win + R` to open the Windows Run dialog.
@@ -82,3 +149,9 @@ Yes. Open **[yt-dlp-server.py](yt-dlp-server.py)** and update the `DOWNLOAD_DIR`
 
 ### Is it safe to run this server?
 Yes. The server binds strictly to `127.0.0.1` (localhost) and only handles requests from `https://www.youtube.com`. Other devices on your local network cannot connect or access your filesystem.
+
+---
+
+## ⚖️ Disclaimer
+
+This software is for personal educational purposes only. Downloading copyrighted material from YouTube without authorization violates YouTube's Terms of Service. The developers are not responsible for any misuse of this tool.
