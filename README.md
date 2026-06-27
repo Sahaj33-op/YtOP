@@ -13,6 +13,8 @@
 
 [![Install Userscript](https://img.shields.io/badge/Install-Userscript-red?style=for-the-badge&logo=tampermonkey&logoColor=white)](https://raw.githubusercontent.com/Sahaj33-op/YtOP/master/YouTube%20Enhanced%20Suite.user.js)
 
+*⚠️ Note: This userscript requires the local Python bridge server running in the background to process downloads.*
+
 <br/>
 
 ![Version](https://img.shields.io/badge/version-3.2.0-blue?style=for-the-badge)
@@ -28,9 +30,9 @@ A light-weight YouTube integration, plus a local download suite. ytOP helps smoo
 ---
 
 ## 📖 Table of Contents
+*   [Installation & Setup](#-installation--setup)
 *   [Key Features](#-key-features)
 *   [Architecture Flow](#%EF%B8%8F-architecture-flow)
-*   [Installation & Setup](#-installation--setup)
 *   [File Structure](#-file-structure)
 *   [Configurations](#-configurations)
 *   [Frequently Asked Questions (FAQ)](#-frequently-asked-questions-faq)
@@ -38,32 +40,81 @@ A light-weight YouTube integration, plus a local download suite. ytOP helps smoo
 
 ---
 
+## 🚀 Installation & Setup
+
+### Prerequisites
+*   [Python 3.x](https://www.python.org/)
+*   A userscript manager extension (e.g., [Tampermonkey](https://www.tampermonkey.net/) or [Violentmonkey](https://violentmonkey.github.io/))
+*   `yt-dlp` and `ffmpeg` installed. We recommend installing via WinGet:
+    ```powershell
+    winget install yt-dlp Gyan.FFmpeg
+    ```
+
+### Step 1: Clone the Repository
+Clone this repository to your local machine to obtain the Python bridge server and runner scripts:
+```bash
+git clone https://github.com/Sahaj33-op/YtOP.git
+cd YtOP
+```
+
+### Step 2: Install the Userscript
+Click the prominent **Install Userscript** badge at the top of this page to install directly, or:
+1. Open Tampermonkey in your browser and select **Create a new script**.
+2. Replace the template code with the contents of **[YouTube Enhanced Suite.user.js](YouTube%20Enhanced%20Suite.user.js)**.
+3. Save the script (`Ctrl + S`).
+
+### Step 3: Run the Local Bridge Server
+*   Double-click **[start-server.bat](start-server.bat)** to launch the console bridge.
+*   *Alternatively*, run **[start-silent.vbs](start-silent.vbs)** to execute the server invisibly in the background.
+
+---
+
 ## 🌟 Key Features
 
-### 🎮 Player Enhancement & Controls
+<details>
+<summary>⚡ Click to expand Key Features list</summary>
+
+<details style="margin-top: 10px; margin-left: 10px;">
+<summary>🎮 Player Enhancement & Controls</summary>
+
 *   **Speed Tuning**: Instant speed preset buttons (`0.5x` to `3x`) plus high-fidelity fine-tuning controls (`-` / `+` in steps of `0.25x`).
 *   **Player Extras**: Native cinema mode overlay, A/B looping boundaries, and high-definition canvas screenshots.
 *   **OSD (On-Screen Display)**: Sleek, non-intrusive micro-animations indicating status updates directly over the YouTube player.
+</details>
 
-### 📥 High-Speed Multi-Format Downloader
+<details style="margin-top: 10px; margin-left: 10px;">
+<summary>📥 High-Speed Multi-Format Downloader</summary>
+
 *   **Intelligent Formats Extraction**: Dynamic extraction of available media profiles directly inside watch and shorts pages.
 *   **Tabbed Interface**: Clean separation for `Video + Audio` (muxed streams), `Video Only` (raw streams), and `Audio Only` (audios).
 *   **Dynamic Extension Filters**: Filter profiles instantly via clickable format pills (e.g. `[MP4]`, `[WEBM]`, `[M4A]`, `[OPUS]`).
+</details>
 
-### ⚡ Live Progress & Background Execution
+<details style="margin-top: 10px; margin-left: 10px;">
+<summary>⚡ Live Progress & Background Execution</summary>
+
 *   **Sleek Inline Progress Tracks**: A 3px horizontal red progress line glides along the format row during active downloads.
 *   **Tooltips**: Hovering the button exposes real-time transfer speeds and ETA.
 *   **Minimize to Background**: Click the minimize (`🗕`) button or press `M` to collapse the overlay into a compact, interactive floating card. Browse or watch other videos on YouTube while the download runs in the background.
 *   **Self-Restoring State**: Click the minimized card to expand the modal back to its original state.
 *   **Auto-Minimize on Close**: Hitting `Esc` or clicking outside the modal during active downloads auto-minimizes the window instead of destroying it.
+</details>
 
-### 🛠 System Self-Healing & Diagnostics
+<details style="margin-top: 10px; margin-left: 10px; margin-bottom: 10px;">
+<summary>🛠 System Self-Healing & Diagnostics</summary>
+
 *   **Auto-Resolution**: The Python backend checks system PATH and automatically resolves WinGet installation directories for `ffmpeg` and `yt-dlp` to ensure a zero-config start.
 *   **Availability Warnings**: Startup verification checks. If FFmpeg is missing from the environment, a `(⚠️ FFmpeg missing)` warning is highlighted in the modal footer.
+</details>
+
+</details>
 
 ---
 
 ## ⚙️ Architecture Flow
+
+<details>
+<summary>🔗 Click to expand Architecture Diagram</summary>
 
 ```
 +---------------------------------------------------------+
@@ -97,34 +148,7 @@ A light-weight YouTube integration, plus a local download suite. ytOP helps smoo
 +---------------------------------------------------------+
 ```
 
----
-
-## 🚀 Installation & Setup
-
-### Prerequisites
-*   [Python 3.x](https://www.python.org/)
-*   A userscript manager extension (e.g., [Tampermonkey](https://www.tampermonkey.net/) or [Violentmonkey](https://violentmonkey.github.io/))
-*   `yt-dlp` and `ffmpeg` installed. We recommend installing via WinGet:
-    ```powershell
-    winget install yt-dlp Gyan.FFmpeg
-    ```
-
-### Step 1: Clone the Repository
-Clone this repository to your local machine to obtain the Python bridge server and runner scripts:
-```bash
-git clone https://github.com/Sahaj33-op/YtOP.git
-cd YtOP
-```
-
-### Step 2: Install the Userscript
-Click the prominent **Install Userscript** badge at the top of this page to install directly, or:
-1. Open Tampermonkey in your browser and select **Create a new script**.
-2. Replace the template code with the contents of **[YouTube Enhanced Suite.user.js](YouTube%20Enhanced%20Suite.user.js)**.
-3. Save the script (`Ctrl + S`).
-
-### Step 3: Run the Local Bridge Server
-*   Double-click **[start-server.bat](start-server.bat)** to launch the console bridge.
-*   *Alternatively*, run **[start-silent.vbs](start-silent.vbs)** to execute the server invisibly in the background.
+</details>
 
 ---
 
@@ -141,19 +165,20 @@ Click the prominent **Install Userscript** badge at the top of this page to inst
 
 ## 🛠 Configurations
 
-You can modify config parameters at the top of **[yt-dlp-server.py](yt-dlp-server.py)**:
-```python
-PORT           = 9898                                                   # Network Port
-DOWNLOAD_DIR   = os.path.join(os.path.expanduser("~"), "Downloads", "ytOP") # Output folder
-ALLOWED_ORIGIN = "https://www.youtube.com"                              # CORS restriction
-```
+You can modify the following variables inside **[yt-dlp-server.py](yt-dlp-server.py)**:
+*   `PORT`: Port for the local bridge server (default: `9898`).
+*   `DOWNLOAD_DIR`: Absolute path to save downloads (default: `%USERPROFILE%/Downloads/ytOP`).
+*   `FFMPEG_BIN` / `YTDLP_BIN`: Customize absolute paths to the binaries if not using standard system installation paths.
 
 ---
 
 ## ❓ Frequently Asked Questions (FAQ)
 
+### How do I start the server silently in the background?
+Instead of double-clicking `start-server.bat` (which leaves a Command Prompt window open), double-click **[start-silent.vbs](start-silent.vbs)**. This runs the Python server completely in the background.
+
 ### How do I stop the background server?
-Double-click **[stop-server.bat](stop-server.bat)** in this repository folder. It searches for active python processes running `yt-dlp-server.py` and terminates them safely.
+To stop the silent background server, double-click **[stop-server.bat](stop-server.bat)** in this repository folder. It will find the running Python server process and terminate it immediately.
 
 ### How do I make the server start automatically when my computer boots?
 1. Press `Win + R` to open the Windows Run dialog.
