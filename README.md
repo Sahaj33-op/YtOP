@@ -11,9 +11,12 @@
 
 <div align="center">
 
+[![Install Userscript](https://img.shields.io/badge/Install-Userscript-red?style=for-the-badge&logo=tampermonkey&logoColor=white)](https://raw.githubusercontent.com/Sahaj33-op/YtOP/master/YouTube%20Enhanced%20Suite.user.js)
+
+<br/>
+
 ![Version](https://img.shields.io/badge/version-3.2.0-blue?style=for-the-badge)
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python&logoColor=white)
-![Tampermonkey](https://img.shields.io/badge/Tampermonkey-Compatible-red?style=for-the-badge&logo=tampermonkey&logoColor=white)
 ![yt-dlp](https://img.shields.io/badge/yt--dlp-Dependency-orange?style=for-the-badge&logo=youtube&logoColor=white)
 ![FFmpeg](https://img.shields.io/badge/FFmpeg-Dependency-green?style=for-the-badge&logo=ffmpeg&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
@@ -106,12 +109,20 @@ A premium, lightweight YouTube integration and local downloader suite. **ytOP** 
     winget install yt-dlp Gyan.FFmpeg
     ```
 
-### Step 1: Install the Userscript
+### Step 1: Clone the Repository
+Clone this repository to your local machine to obtain the Python bridge server and runner scripts:
+```bash
+git clone https://github.com/Sahaj33-op/YtOP.git
+cd YtOP
+```
+
+### Step 2: Install the Userscript
+Click the prominent **Install Userscript** badge at the top of this page to install directly, or:
 1. Open Tampermonkey in your browser and select **Create a new script**.
 2. Replace the template code with the contents of **[YouTube Enhanced Suite.user.js](YouTube%20Enhanced%20Suite.user.js)**.
 3. Save the script (`Ctrl + S`).
 
-### Step 2: Run the Local Bridge Server
+### Step 3: Run the Local Bridge Server
 *   Double-click **[start-server.bat](start-server.bat)** to launch the console bridge.
 *   *Alternatively*, run **[start-silent.vbs](start-silent.vbs)** to execute the server invisibly in the background.
 
