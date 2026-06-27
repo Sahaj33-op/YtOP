@@ -18,6 +18,10 @@
 
 </div>
 
+<div align="center">
+  <img src="ytOP-interface.png" alt="ytOP Interface" width="700" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); margin-top: 10px; margin-bottom: 20px;" />
+</div>
+
 A light-weight YouTube integration, plus a local download suite. ytOP helps smooth out that in between place, between browser comfort and raw CLI control, sorta bridging a lovely Tampermonkey userscript overlay with a multi-threaded Python backend server, run with yt-dlp and ffmpeg.
 
 ---
@@ -192,6 +196,12 @@ To stop the silent background server, double-click **[stop-server.bat](stop-serv
 If you install the optional tray dependencies (`pip install pystray Pillow`), a red download arrow icon will automatically appear in your Windows system tray when the server is running.
 * Right-click the icon to quickly **Stop Server**, **Open Downloads Folder**, or open the **GitHub Repository**.
 * If the libraries are not installed, the server will seamlessly run in standard console/background mode without crashing.
+
+<br/>
+
+<div align="center">
+  <img src="ytOP-trayicon.png" alt="ytOP System Tray Icon & Context Menu" width="280" style="border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.25);" />
+</div>
 </details>
 
 <details style="margin-top: 10px;">
