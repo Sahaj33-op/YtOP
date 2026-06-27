@@ -1,14 +1,5 @@
 # ytOP 🎬
 
-```
-██╗░░░██╗████████╗░█████╗░██████╗░
-╚██╗░██╔╝╚══██╔══╝██╔══██╗██╔══██╗
-░╚████╔╝░░░░██║░░░██║░░██║██████╔╝
-░░╚██╔╝░░░░░██║░░░██║░░██║██╔═══╝░
-░░░██║░░░░░░██║░░░╚█████╔╝██║░░░░░
-░░░╚═╝░░░░░░╚═╝░░░░╚════╝░╚═╝░░░░░
-```
-
 <div align="center">
 
 [![Install Userscript](https://img.shields.io/badge/Install-Userscript-red?style=for-the-badge&logo=tampermonkey&logoColor=white)](https://raw.githubusercontent.com/Sahaj33-op/YtOP/master/YouTube%20Enhanced%20Suite.user.js)
