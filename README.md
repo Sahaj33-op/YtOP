@@ -171,33 +171,61 @@ You can modify the following variables inside **[yt-dlp-server.py](yt-dlp-server
 
 ## ❓ Frequently Asked Questions (FAQ)
 
-### How do I start the server silently in the background?
+<details style="margin-top: 10px;">
+<summary><b>How do I start the server silently in the background?</b></summary>
+<br/>
+
 Instead of double-clicking `start-server.bat` (which leaves a Command Prompt window open), double-click **[start-silent.vbs](start-silent.vbs)**. This runs the Python server completely in the background.
+</details>
 
-### How do I stop the background server?
+<details style="margin-top: 10px;">
+<summary><b>How do I stop the background server?</b></summary>
+<br/>
+
 To stop the silent background server, double-click **[stop-server.bat](stop-server.bat)** in this repository folder. It will find the running Python server process and terminate it immediately. Alternatively, if you have the optional system tray icon enabled, simply right-click the red tray icon and select **Stop Server**.
+</details>
 
-### How do I enable and use the system tray icon?
+<details style="margin-top: 10px;">
+<summary><b>How do I enable and use the system tray icon?</b></summary>
+<br/>
+
 If you install the optional tray dependencies (`pip install pystray Pillow`), a red download arrow icon will automatically appear in your Windows system tray when the server is running.
 * Right-click the icon to quickly **Stop Server**, **Open Downloads Folder**, or open the **GitHub Repository**.
 * If the libraries are not installed, the server will seamlessly run in standard console/background mode without crashing.
+</details>
 
-### How do I make the server start automatically when my computer boots?
+<details style="margin-top: 10px;">
+<summary><b>How do I make the server start automatically when my computer boots?</b></summary>
+<br/>
+
 1. Press `Win + R` to open the Windows Run dialog.
 2. Type `shell:startup` and press **Enter** (this opens your Windows Startup folder).
 3. Right-click inside the folder, select **New ➔ Shortcut**.
 4. Click **Browse...**, select **[start-silent.vbs](start-silent.vbs)**, and click **Finish**.
+</details>
 
-### Why do I see a `(⚠️ FFmpeg missing)` warning?
+<details style="margin-top: 10px;">
+<summary><b>Why do I see a <code>(⚠️ FFmpeg missing)</code> warning?</b></summary>
+<br/>
+
 The bridge server checked your PATH and standard folders but could not find a valid `ffmpeg.exe` installation. To resolve this:
 * Make sure FFmpeg is installed (e.g. via `winget install Gyan.FFmpeg`).
 * If already installed, open **[yt-dlp-server.py](yt-dlp-server.py)** and set `FFMPEG_BIN` to the absolute path of your executable (e.g. `r"C:\tools\ffmpeg\bin\ffmpeg.exe"`).
+</details>
 
-### Can I change where downloaded videos are saved?
+<details style="margin-top: 10px;">
+<summary><b>Can I change where downloaded videos are saved?</b></summary>
+<br/>
+
 Yes. Open **[yt-dlp-server.py](yt-dlp-server.py)** and update the `DOWNLOAD_DIR` path to any directory of your choice.
+</details>
 
-### Is it safe to run this server?
+<details style="margin-top: 10px; margin-bottom: 20px;">
+<summary><b>Is it safe to run this server?</b></summary>
+<br/>
+
 Yes. The server binds strictly to `127.0.0.1` (localhost) and only handles requests from `https://www.youtube.com`. Other devices on your local network cannot connect or access your filesystem.
+</details>
 
 ---
 
