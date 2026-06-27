@@ -14,6 +14,7 @@
 // @run-at       document-idle
 // @homepageURL  https://github.com/Sahaj33-op/YtOP
 // @supportURL   https://github.com/Sahaj33-op/YtOP/issues
+// @icon         https://raw.githubusercontent.com/Sahaj33-op/YtOP/master/ytOP.png
 // @updateURL    https://raw.githubusercontent.com/Sahaj33-op/YtOP/master/YouTube%20Enhanced%20Suite.user.js
 // @downloadURL  https://raw.githubusercontent.com/Sahaj33-op/YtOP/master/YouTube%20Enhanced%20Suite.user.js
 // @noframes
@@ -1182,9 +1183,14 @@
     const branding = el("a", {
       href: "https://github.com/Sahaj33-op/YtOP",
       target: "_blank",
-      style: "margin-left: auto; color: #888; font-size: 11px; text-decoration: none; font-weight: 500; transition: color 0.15s;",
-      text: "ytOP by Sahaj33-op ↗"
+      style: "margin-left: auto; color: #888; font-size: 11px; text-decoration: none; font-weight: 500; transition: color 0.15s; display: flex; align-items: center; gap: 6px;"
     });
+    const logoImg = el("img", {
+      src: "https://raw.githubusercontent.com/Sahaj33-op/YtOP/master/ytOP.png",
+      style: "width: 14px; height: 14px; border-radius: 3px;"
+    });
+    branding.appendChild(logoImg);
+    branding.appendChild(document.createTextNode("ytOP by Sahaj33-op ↗"));
     branding.addEventListener("mouseenter", () => branding.style.color = "#ff0000");
     branding.addEventListener("mouseleave", () => branding.style.color = "#888");
     const footer  = el("div", { cls: "ytdlp-footer" }, dot, dirText, branding);

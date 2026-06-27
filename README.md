@@ -2,6 +2,10 @@
 
 <div align="center">
 
+<img src="ytOP.png" alt="ytOP Logo" width="120" style="border-radius: 12px; margin-bottom: 15px;" />
+
+<br/>
+
 [![Install Userscript](https://img.shields.io/badge/Install-Userscript-red?style=for-the-badge&logo=tampermonkey&logoColor=white)](https://raw.githubusercontent.com/Sahaj33-op/YtOP/master/YouTube%20Enhanced%20Suite.user.js)
 
 *⚠️ Note: This userscript requires the local Python bridge server running in the background to process downloads.*
