@@ -9,6 +9,17 @@
 ░░░╚═╝░░░░░░╚═╝░░░░╚════╝░╚═╝░░░░░
 ```
 
+<div align="center">
+
+![Version](https://img.shields.io/badge/version-3.2.0-blue?style=for-the-badge)
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python&logoColor=white)
+![Tampermonkey](https://img.shields.io/badge/Tampermonkey-Compatible-red?style=for-the-badge&logo=tampermonkey&logoColor=white)
+![yt-dlp](https://img.shields.io/badge/yt--dlp-Dependency-orange?style=for-the-badge&logo=youtube&logoColor=white)
+![FFmpeg](https://img.shields.io/badge/FFmpeg-Dependency-green?style=for-the-badge&logo=ffmpeg&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+
+</div>
+
 A premium, lightweight YouTube integration and local downloader suite. **ytOP** bridges the gap between browser convenience and raw CLI power, linking a beautiful Tampermonkey userscript overlay with a multi-threaded Python backend server powered by `yt-dlp` and `ffmpeg`.
 
 ---
