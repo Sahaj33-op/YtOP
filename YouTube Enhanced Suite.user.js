@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         🎬 YouTube Enhanced Suite (Controls & Downloader)
-// @namespace    https://github.com/local/yt-dlp-yt
+// @namespace    https://github.com/Sahaj33-op/YtOP
 // @version      3.2.0
 // @description  Adds a real yt-dlp download button and video player controls (speed, loop, cinema mode, screenshot) to YouTube.
-// @author       You
+// @author       Sahaj33-op
 // @match        https://www.youtube.com/*
 // @grant        GM_xmlhttpRequest
 // @grant        GM_addStyle
@@ -12,6 +12,8 @@
 // @connect      127.0.0.1
 // @connect      localhost
 // @run-at       document-idle
+// @homepageURL  https://github.com/Sahaj33-op/YtOP
+// @supportURL   https://github.com/Sahaj33-op/YtOP/issues
 // @noframes
 // ==/UserScript==
 
@@ -1175,7 +1177,15 @@
 
     const dot     = el("div", { cls: "ytdlp-dot" });
     const dirText = el("div", { cls: "ytdlp-footer-dir" }, "Checking server…");
-    const footer  = el("div", { cls: "ytdlp-footer" }, dot, dirText);
+    const branding = el("a", {
+      href: "https://github.com/Sahaj33-op/YtOP",
+      target: "_blank",
+      style: "margin-left: auto; color: #888; font-size: 11px; text-decoration: none; font-weight: 500; transition: color 0.15s;",
+      text: "ytOP by Sahaj33-op ↗"
+    });
+    branding.addEventListener("mouseenter", () => branding.style.color = "#ff0000");
+    branding.addEventListener("mouseleave", () => branding.style.color = "#888");
+    const footer  = el("div", { cls: "ytdlp-footer" }, dot, dirText, branding);
 
     const modal   = el("div", { id: "ytdlp-modal" }, hdr, tabBar, body, footer);
     const overlay = el("div", { id: OVL_ID }, modal);

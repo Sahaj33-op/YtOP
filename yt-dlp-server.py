@@ -396,11 +396,19 @@ class Handler(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     server = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
-    print(f"╔══════════════════════════════════════════╗")
-    print(f"║   yt-dlp Bridge Server  v1.0             ║")
-    print(f"║   Listening on http://127.0.0.1:{PORT}     ║")
-    print(f"║   Download dir: {DOWNLOAD_DIR[:26]:<26}║")
-    print(f"╚══════════════════════════════════════════╝")
+    print("██╗░░░██╗████████╗░█████╗░██████╗░")
+    print("╚██╗░██╔╝╚══██╔══╝██╔══██╗██╔══██╗")
+    print("░╚████╔╝░░░░██║░░░██║░░██║██████╔╝")
+    print("░░╚██╔╝░░░░░██║░░░██║░░██║██╔═══╝░")
+    print("░░░██║░░░░░░██║░░░╚█████╔╝██║░░░░░")
+    print("░░░╚═╝░░░░░░╚═╝░░░░╚════╝░╚═╝░░░░░")
+    print("╔══════════════════════════════════════════════════════╗")
+    print("║   ytOP: yt-dlp Local Bridge Server                   ║")
+    print(f"║   URL:      http://127.0.0.1:{PORT:<29}║")
+    print(f"║   Save path: {DOWNLOAD_DIR[:39]:<40}║")
+    print("║   GitHub:   https://github.com/Sahaj33-op/YtOP       ║")
+    print("║   Author:   Sahaj33-op                               ║")
+    print("╚══════════════════════════════════════════════════════╝")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
