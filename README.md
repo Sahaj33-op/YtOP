@@ -23,7 +23,7 @@
 
 </div>
 
-A premium, lightweight YouTube integration and local downloader suite. **ytOP** bridges the gap between browser convenience and raw CLI power, linking a beautiful Tampermonkey userscript overlay with a multi-threaded Python backend server powered by `yt-dlp` and `ffmpeg`.
+A light-weight YouTube integration, plus a local download suite. ytOP helps smooth out that in between place, between browser comfort and raw CLI control, sorta bridging a lovely Tampermonkey userscript overlay with a multi-threaded Python backend server, run with yt-dlp and ffmpeg.
 
 ---
 
