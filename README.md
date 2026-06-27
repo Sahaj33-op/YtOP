@@ -1,5 +1,3 @@
-# ytOP 🎬
-
 <div align="center">
 
 <img src="ytOP.png" alt="ytOP Logo" width="120" style="border-radius: 12px; margin-bottom: 15px;" />
